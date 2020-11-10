@@ -71,6 +71,7 @@ public class MySQLConnection {
 
     }
 
+    //Esto es solamente para los resultsSets
     public ResultSet Query(String sql) {
         ResultSet output = null;
         try {

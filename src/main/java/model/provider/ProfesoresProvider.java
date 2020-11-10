@@ -2,17 +2,20 @@ package model.provider;
 
 import db.MySQLConnection;
 import entity.Profesor;
+import model.dto.CursoDTO;
 import model.dto.ProfesorDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ProfesoresProvider {
 
 
     //Proveer informacion
-    public ProfesorDTO getProfesor(int id) {
-        Profesor profesor = new Profesor();
+    public ProfesorDTO getProfesorById(int id) {
+        ProfesorDTO profesorDTO = new ProfesorDTO();
+        CursosProvider cursoProvider = new CursosProvider();
         MySQLConnection connection = new MySQLConnection();
         try {
             
@@ -21,19 +24,46 @@ public class ProfesoresProvider {
 
             while (resultSet.next()){
 
-                profesor.setId(resultSet.getInt(1));
-                profesor.setNombre(resultSet.getString(2));
-                profesor.setFacultad(resultSet.getString(3));
+                profesorDTO.setId(resultSet.getInt(1));
+                profesorDTO.setNombre(resultSet.getString(2));
+                profesorDTO.setFacultad(resultSet.getString(3));
+                ArrayList<CursoDTO> cursitos = cursoProvider.getAllCursosByProfesor(profesorDTO.getId());
+                profesorDTO.setCursos(cursitos);
+
             }
 
         }catch (SQLException throwables) {
         throwables.printStackTrace();
         }
         connection.disconnect();
-        return  mapToDTO(profesor);
+        return  profesorDTO;
     //Control alt L
     }
 
+    public ProfesorDTO getPartProfesorById(int id) {
+        ProfesorDTO profesorDTO = new ProfesorDTO();
+
+        MySQLConnection connection = new MySQLConnection();
+        try {
+
+            String sql = "SELECT id, nombre , facultad FROM profesores WHERE id=" + id;
+            ResultSet resultSet = connection.Query(sql);
+
+            while (resultSet.next()){
+
+                profesorDTO.setId(resultSet.getInt(1));
+                profesorDTO.setNombre(resultSet.getString(2));
+                profesorDTO.setFacultad(resultSet.getString(3));
+
+            }
+
+        }catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        connection.disconnect();
+        return  profesorDTO;
+        //Control alt L
+    }
 
     //Proveer las acciones
     public void InsertProfesor(Profesor profesor) {

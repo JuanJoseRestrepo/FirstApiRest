@@ -6,9 +6,8 @@ import model.provider.CursosProvider;
 import model.provider.ProfesoresProvider;
 
 import javax.ejb.Stateless;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
+import java.util.ArrayList;
 
 @Stateless
 @Path("cursos")
@@ -17,14 +16,26 @@ public class CursoServices {
 
     @POST
     @Consumes("application/json")
+    @Produces("application/json")
     @Path("create")
-    public dto.Response createProfesor(CursoDTO cursoDTO){
+    public dto.Response createCurso(CursoDTO cursoDTO){
         CursosProvider cursoProvider = new CursosProvider();
 
         cursoProvider.InsertCurso(cursoProvider.mapFromDTO(cursoDTO));
 
         return new dto.Response("Operacion exitosa");
 
+    }
+
+
+    @GET
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("all")
+    public ArrayList<CursoDTO> getAllCursos(){
+        CursosProvider provider = new CursosProvider();
+        ArrayList<CursoDTO> cursosDTOS = provider.getAllCursos();
+        return  cursosDTOS;
     }
 
 }

@@ -30,7 +30,7 @@ public class ProfesorServices {
     @Path("{id}")
     public ProfesorDTO getProfesor(@PathParam("id") String id){
         ProfesoresProvider provider = new ProfesoresProvider();
-        ProfesorDTO profe = provider.getProfesor(Integer.parseInt(id));
+        ProfesorDTO profe = provider.getProfesorById(Integer.parseInt(id));
         return profe;
 
     }

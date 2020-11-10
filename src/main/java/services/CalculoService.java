@@ -40,7 +40,7 @@ public class CalculoService {
     @Produces("application/json")
     @Path("division")
     public Respuesta div(Division obj){
-        double res = obj.getDividiendo() / (double)obj.getDivisor();
+        double res = (double)obj.getDividiendo() / obj.getDivisor();
         Respuesta respuesta = new Respuesta(obj.getUid(),res);
         return  respuesta;
 
