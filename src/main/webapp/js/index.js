@@ -2,6 +2,7 @@
 const nombre = document.getElementById('nombre');
 const facultad = document.getElementById('facultad');
 const regis = document.getElementById('regis');
+const profesoresContainer = document.getElementById('profesoresContainer');
 
 const registrar = () =>{
     let profeObj = {
@@ -35,6 +36,13 @@ const getAllProfesores = () =>{
             let json = xhr.responseText;
             let response = JSON.parse(json);
             console.log(response);
+
+            for(let i = 0; i < response.length ;i++){
+                let profesorDTO = response[i];
+                let view = new profesorView(profesorDTO);
+                profesoresContainer.appendChild(view.render() ); 
+            }
+
         }
     });
 
