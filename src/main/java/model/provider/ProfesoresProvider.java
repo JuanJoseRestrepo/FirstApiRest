@@ -12,6 +12,33 @@ import java.util.ArrayList;
 public class ProfesoresProvider {
 
 
+    public ArrayList<ProfesorDTO> getAllProfesores() {
+        ArrayList<ProfesorDTO> profe = new ArrayList<>();
+        MySQLConnection connection = new MySQLConnection();
+        try {
+
+            String sql = "SELECT id, nombre, facultad FROM profesores";
+
+            ResultSet resultset = connection.Query(sql);
+
+            while (resultset.next()) {
+                profe.add(new ProfesorDTO(
+                        resultset.getInt(1),
+                        resultset.getString(2),
+                        resultset.getString(3),
+                        null
+                ));
+
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        connection.disconnect();
+        return profe;
+    }
+
     //Proveer informacion
     public ProfesorDTO getProfesorById(int id) {
         ProfesorDTO profesorDTO = new ProfesorDTO();

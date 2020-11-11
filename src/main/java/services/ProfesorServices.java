@@ -7,6 +7,7 @@ import model.provider.ProfesoresProvider;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.*;
+import java.util.ArrayList;
 
 @Stateless
 @Path("profesores")
@@ -21,6 +22,17 @@ public class ProfesorServices {
         profesorProvider.InsertProfesor(profesorProvider.mapFromDTO(profesorDTO));
 
         return new Response("Operacion exitosa");
+
+    }
+
+
+    @GET
+    @Produces("application/json")
+    @Path("all")
+    public ArrayList<ProfesorDTO> getAllProfesors(){
+        ProfesoresProvider provider = new ProfesoresProvider();
+        ArrayList<ProfesorDTO> profe = provider.getAllProfesores();
+        return profe;
 
     }
 

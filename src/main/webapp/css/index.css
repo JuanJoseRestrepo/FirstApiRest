@@ -1,0 +1,39 @@
+#registroContainer{
+    background-color: floralwhite;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+    padding: 40px;
+    border-radius: 20px;
+}
+
+#registroContainer input{
+    width: 40%;
+    padding: 10px;
+    justify-content:center;
+}
+
+.inputdata{
+    width: 40%;
+    padding: 10px;
+    justify-content:center;
+}
+
+#registroContainer *{
+
+    margin: 5px 0px 5px 0px
+
+}
+
+#logo{
+    width: 300px;
+}
+
+#registroTitle{
+    color: burlywood;
+}
+
